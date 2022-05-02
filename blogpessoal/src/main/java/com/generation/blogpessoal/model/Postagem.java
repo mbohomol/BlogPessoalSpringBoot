@@ -13,28 +13,25 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.UpdateTimestamp;
 
-@Entity // create table
+@Entity // create table // entidade = tabela
 @Table(name =  "tb_postagens") // nome da tabela: tb_postagens
 public class Postagem {
 
     @Id // primary key
     @GeneratedValue(strategy = GenerationType.IDENTITY) // auto_increment
-    private Long id;
+    private Long id; // atributo de "Postagens"
 
     @NotBlank(message = "O atributo título é obrigatório!")
     @Size(min= 5, max= 100, message = "O atributo título deve conter no mínimo 5 e no máximo 100 caracteres ")
-    private String titulo;
+    private String titulo; // atributo de "Postagens"
 
     @NotNull(message = "O atributo título é obrigatório!")
     @Size(min= 10, max= 1000, message = "O atributo título deve conter no mínimo 5 e no máximo 100 caracteres ")
-    private String texto;
+    private String texto; // atributo de "Postagens"
 
     @UpdateTimestamp
-    private LocalDateTime data;
+    private LocalDateTime data;  // métodos GET/SET(id/titulo/texto)
     
-    
-
-
     public Long getId() {
         return id;
     }
