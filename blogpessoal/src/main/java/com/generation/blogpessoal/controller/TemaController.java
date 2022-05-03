@@ -30,31 +30,32 @@ public class TemaController {
 	
 	@GetMapping // para saber que esta chamando uma requisição, metódo que responde a requisição
 	public ResponseEntity<List<Tema>> getAll(){ //por issso que tem que criar uma classe "Postagens", para poder importar
-		return ResponseEntity.ok(temaRepository.findAll()); 	
+		return ResponseEntity.ok(temaRepository.findAll()); // findAll = Exibe todos os Objetos de uma Classe.
+
 	}
 	
 	@GetMapping("/{id}")
 	public ResponseEntity<Tema> getById(@PathVariable Long id){
-		return temaRepository.findById(id)
+		return temaRepository.findById(id) // finById =Exibe um Objeto com um id específico.
 				.map(resposta -> ResponseEntity.ok(resposta))
 				.orElse(ResponseEntity.notFound().build()); 
 	}
-	@GetMapping("/nome/{nome}")
-	public ResponseEntity <List<Tema>>getByNome(@PathVariable String nome){
-		return ResponseEntity.ok(temaRepository.findAllByTituloContainingIgnoreCase(nome)); 
+	@GetMapping("/descricao/{descricao}")
+	public ResponseEntity<List<Tema>> getByDescricao(@PathVariable String descricao){
+		return ResponseEntity.ok(temaRepository.findAllByDescricaoContainingIgnoreCase(descricao));
 	}
 	
 	@PostMapping
-	public ResponseEntity <Tema> postPostagem(@Valid @RequestBody Tema tema){
+	public ResponseEntity <Tema> postTema(@Valid @RequestBody Tema tema){
 		return ResponseEntity.status(HttpStatus.CREATED).body(temaRepository.save(tema));
 	}
 	
 	@PutMapping
-	public ResponseEntity <Tema> putPostagem(@Valid @RequestBody Tema tema){
+	public ResponseEntity <Tema> putTema(@Valid @RequestBody Tema tema){
 		return ResponseEntity.status(HttpStatus.OK).body(temaRepository.save(tema));
 	}
 	@DeleteMapping("/{id}")
-	public void deletePostagem(@PathVariable Long id) {
+	public void deleteTema(@PathVariable Long id) {
 		temaRepository.deleteById(id);
 	}
 }

@@ -10,7 +10,6 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -23,12 +22,8 @@ public class Tema {
 	    @GeneratedValue(strategy = GenerationType.IDENTITY) // auto_increment
 	    private Long id; // atributo de "Tema"
 
-	    @NotBlank(message = "O atributo nome é obrigatório!")
-	    @Size(min= 5, max= 100, message = "O atributo nome deve conter no mínimo 5 e no máximo 100 caracteres ")
-	    private String nome; // atributo de "Tema"
-
-	    @NotNull(message = "O atributo descrição é obrigatório!")
-	    @Size(min= 10, max= 1000, message = "O atributo descrição deve conter no mínimo 5 e no máximo 100 caracteres ")
+	    @NotBlank(message = "O atributo descrição é obrigatório!")
+	    @Size(min= 5, max= 100, message = "O atributo descrição deve conter no mínimo 5 e no máximo 100 caracteres ")
 	    private String descricao; // atributo de "Tema"
 	    
 	    @OneToMany(mappedBy = "tema", cascade = CascadeType.REMOVE)
@@ -44,14 +39,6 @@ public class Tema {
 			this.id = id;
 		}
 
-		public String getNome() {
-			return nome;
-		}
-
-		public void setNome(String nome) {
-			this.nome = nome;
-		}
-
 		public String getDescricao() {
 			return descricao;
 		}
@@ -59,6 +46,16 @@ public class Tema {
 		public void setDescricao(String descricao) {
 			this.descricao = descricao;
 		}
+
+		public List<Postagem> getPostagem() {
+			return postagem;
+		}
+
+		public void setPostagem(List<Postagem> postagem) {
+			this.postagem = postagem;
+		}
+
+	
 
 
 }
