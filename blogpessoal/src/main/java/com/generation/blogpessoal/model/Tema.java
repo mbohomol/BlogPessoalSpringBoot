@@ -19,7 +19,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public class Tema {
 	
 		@Id // primary key
-	    @GeneratedValue(strategy = GenerationType.IDENTITY) // auto_increment
+	    @GeneratedValue(strategy = GenerationType.IDENTITY) 
 	    private Long id; // atributo de "Tema"
 
 	    @NotBlank(message = "O atributo descrição é obrigatório!")

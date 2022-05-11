@@ -26,7 +26,7 @@ import com.generation.blogpessoal.repository.PostagemRepository;
 public class PostagemController {  // classe que devolve uma resposta
 
 	@Autowired
-	private PostagemRepository postagemRepository;
+	private PostagemRepository postagemRepository; // acessa todos os métodos da Interface
 	
 	@GetMapping // para saber que esta chamando uma requisição, metódo que responde a requisição
 	public ResponseEntity<List<Postagem>> getAll(){ //por issso que tem que criar uma classe "Postagens", para poder importar
