@@ -33,12 +33,12 @@ public class Usuario {
 
 	@NotBlank(message = "O atributo Senha é Obrigatório!") // @NotBlank indica que o atributo não deve ser nulo e/ou
 															// conter espaços em branco.
-	@Size(min = 8, message = "A Senha deve ter no mínimo 8 caracteres") // A anotação @Size está definida apenas com o
-																		// valor min pq ao criptografar a senha, terá um
-																		// tamanho muito maior (em n de caracteres) do
-																		// que a senha não ciptografada.
-	private String senha;
-
+	
+																		
+	@Size(min = 8, message = "A Senha deve ter no mínimo 8 caracteres")	 // A anotação @Size está definida apenas com o	
+	private String senha;												 // valor min pq ao criptografar a senha, terá um
+																		// tamanho muito maior (em n de caracteres)
+	
 	private String foto;
 
 	/**

@@ -15,47 +15,47 @@ import javax.validation.constraints.Size;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity // create table // entidade = tabela
-@Table(name =  "tb_temas") // nome da tabela: tb_temas
+@Table(name = "tb_temas") // nome da tabela: tb_temas
 public class Tema {
-	
-		@Id // primary key
-	    @GeneratedValue(strategy = GenerationType.IDENTITY) 
-	    private Long id; // atributo de "Tema"
 
-	    @NotBlank(message = "O atributo descrição é obrigatório!")
-	    @Size(min= 15, max= 200, message = "O atributo descrição deve conter no mínimo 15 e no máximo 200 caracteres ")
-	    private String descricao; // atributo de "Tema"
-	    
-	    @OneToMany(mappedBy = "tema", cascade = CascadeType.REMOVE)
-	    @JsonIgnoreProperties("tema")
-	    private List<Postagem> postagem;
+	@Id // primary key
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id; // atributo de "Tema"
 
-	    
-		public Long getId() {
-			return id;
-		}
+	@NotBlank(message = "O atributo descrição é obrigatório!")
+	@Size(min = 15, max = 200, message = "O atributo descrição deve conter no mínimo 15 e no máximo 200 caracteres ")
+	private String descricao; // atributo de "Tema"
 
-		public void setId(Long id) {
-			this.id = id;
-		}
+	@OneToMany(mappedBy = "tema", cascade = CascadeType.REMOVE) // indica que a Classe Categoria terá um relacionamento
+																// do tipo One To Many (Um para Muitos) com a Classe Produto
+	// mappedBy = "categoria": indica qual Objeto será utilizado como "chave estrangeira" no relacionamento
+	// cascade = CascadeType.REMOVE = exemplo: se apagar uma Categoria, todas os produtos associadas a esta Categoria serão apagados também
+	@JsonIgnoreProperties("tema") // @JsonIgnoreProperties evita loop
+	private List<Postagem> postagem; // List = listará todos os Produtos associados com as respectivas Categorias
 
-		public String getDescricao() {
-			return descricao;
-		}
+// get and setters:
+	public Long getId() {
+		return id;
+	}
 
-		public void setDescricao(String descricao) {
-			this.descricao = descricao;
-		}
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-		public List<Postagem> getPostagem() {
-			return postagem;
-		}
+	public String getDescricao() {
+		return descricao;
+	}
 
-		public void setPostagem(List<Postagem> postagem) {
-			this.postagem = postagem;
-		}
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
 
-	
+	public List<Postagem> getPostagem() {
+		return postagem;
+	}
 
+	public void setPostagem(List<Postagem> postagem) {
+		this.postagem = postagem;
+	}
 
 }

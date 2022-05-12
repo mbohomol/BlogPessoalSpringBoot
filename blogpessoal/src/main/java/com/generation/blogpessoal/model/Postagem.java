@@ -16,16 +16,16 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-@Entity // create table // entidade = tabela
-@Table(name = "tb_postagens") // nome da tabela: tb_postagens
+@Entity // create table // entidade = tabela // gera uma tabela no Banco de Dados
+@Table(name = "tb_postagens") //cria o nome da tabela: tb_postagens no Banco de Dados
 public class Postagem {
 
-	@Id // primary key
-	@GeneratedValue(strategy = GenerationType.IDENTITY) // auto_increment
-	private Long id; // atributo de "Postagens"
+	@Id // @Id indica que o atributo é a chave primária da tabela (primary key)
+	@GeneratedValue(strategy = GenerationType.IDENTITY) // @GeneratedValue indica que a chave primária será gerada automaticamente pelo Banco de Dados 
+	private Long id; // atributo de "Postagens"        // strategy indica como a Chave Primária será gerada //  GenerationType.IDENTITY = auto_increment
 
-	@NotBlank(message = "O atributo título é obrigatório!")
-	@Size(min = 5, max = 100, message = "O atributo título deve conter no mínimo 5 e no máximo 100 caracteres ")
+	@NotBlank(message = "O atributo título é obrigatório!")// @NotBlank indica que um atributo não pode ser nulo e não pode ser deixado em branco // a mensagem será exibida se o atributo for nulo ou se for deixado em branco
+	@Size(min = 5, max = 100, message = "O atributo título deve conter no mínimo 5 e no máximo 100 caracteres ")  // @Size tem a função de definir o tamanho minimo e máximo de caracteres de um atributo String
 	private String titulo; // atributo de "Postagens"
 
 	@NotNull(message = "O atributo título é obrigatório!")
@@ -39,13 +39,14 @@ public class Postagem {
 	// métodos GET/SET(id/titulo/texto)
 
 	@ManyToOne
-	@JsonIgnoreProperties("postagem")
+	@JsonIgnoreProperties("postagem")// @JsonIgnoreProperties evita loop
 	private Tema tema;
 
 	@ManyToOne
-	@JsonIgnoreProperties("postagem")
+	@JsonIgnoreProperties("postagem")// @JsonIgnoreProperties evita loop
 	private Usuario usuario;
 
+// get and setters:
 	public Usuario getUsuario() {
 		return usuario;
 	}

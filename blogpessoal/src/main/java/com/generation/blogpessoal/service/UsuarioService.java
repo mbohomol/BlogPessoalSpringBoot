@@ -13,18 +13,6 @@ import com.generation.blogpessoal.model.Usuario;
 import com.generation.blogpessoal.model.UsuarioLogin;
 import com.generation.blogpessoal.repository.UsuarioRepository;
 
-/**
- * // Classe UsuarioService implementa as regras de negócio do Recurso Usuario.
- * Regras de negócio são as particularidades das funcionalidades a serem
- * implementadas no objeto tais como:
- * 
- * 1) O Usuário não pode estar duplicado no Banco de dados 2) A senha do Usuario
- * deve ser criptografada
- * 
- * // Toda a implementação dos metodos Cadastrar, Atualizar e Logar estão
- * implmentadas na classe de serviço, enquanto a Classe Controller se limita a
- * checar a resposta da requisição.
- */
 
 @Service // @Service indica que esta é uma Classe de Serviço, ou seja, implementa todas
 			// regras de negócio do Recurso Usuário.
@@ -40,43 +28,22 @@ public class UsuarioService {
 										// dbv)
 
 		usuario.setSenha(criptografarSenha(usuario.getSenha()));
-		/**
-		 * Se o Usuário não existir no Banco de Dados, a senha será criptografada
-		 * através do Método criptografarSenha.
-		 */
+		
 
 		return Optional.of(usuarioRepository.save(usuario));
-		/**
-		 * Assim como na Expressão Lambda, o resultado do método save será retornado
-		 * dentro de um Optional, com o Usuario persistido no Banco de Dados.
-		 * 
-		 * of​ -> Retorna um Optional com o valor fornecido, mas o valor não pode ser
-		 * nulo. Se não tiver certeza de que o valor não é nulo use ofNullable.
-		 */
+		
 	}
 
 	public Optional<Usuario> atualizarUsuario(Usuario usuario) { // atualiza o usuário
 
 		if (usuarioRepository.findById(usuario.getId()).isPresent()) {
-			// Checa se o usuário já existe no Banco de Dados através do método findById, pq
-			// não é possível atualizar um usuário inexistente.
-			// Se não existir retorna um Optional vazio.
-			// isPresent() -> Se um valor estiver presente retorna true, caso contrário
-			// retorna false.
+			
 
 			usuario.setSenha(criptografarSenha(usuario.getSenha()));
-			// Se o Usuário existir no Banco de Dados, a senha será criptografada através do
-			// Método criptografarSenha
+			
 
 			return Optional.ofNullable(usuarioRepository.save(usuario));
-			/**
-			 * Assim como na Expressão Lambda, o resultado do método save será retornado
-			 * dentro de um Optional, com o Usuario persistido no Banco de Dados ou um
-			 * Optional vazio, caso aconteça algum erro.
-			 * 
-			 * ofNullable​ -> Se um valor estiver presente, retorna um Optional com o valor,
-			 * caso contrário, retorna um Optional vazio.
-			 */
+			
 		}
 
 		return Optional.empty(); // empty -> Retorna uma instância de Optional vazia, caso o usuário não seja
@@ -85,32 +52,14 @@ public class UsuarioService {
 	}
 
 	public Optional<UsuarioLogin> autenticarUsuario(Optional<UsuarioLogin> usuarioLogin) {
-//autenticarUsuario gerar o token do usuário codificado em Base64
-//O login é executado pela BasicSecurityConfig em conjunto com as classes UserDetailsService e Userdetails
+
 
 		Optional<Usuario> usuario = usuarioRepository.findByUsuario(usuarioLogin.get().getUsuario());
-		/**
-		 * // Cria um objeto Optional do tipo Usuario para receber o resultado do método
-		 * findByUsuario().
-		 * 
-		 * Observe que o método autenticarUsuario recebe como parâmetro um objeto da
-		 * Classe UsuarioLogin, ao invés de Usuario.
-		 * 
-		 * get() -> Se um valor estiver presente no objeto ele retorna o valor, caso
-		 * contrário, lança uma Exception NoSuchElementException. Então para usar get é
-		 * preciso ter certeza de que o Optional não está vazio. O get() funciona como
-		 * uma chave que abre o Objeto Optional e permite acessar os Métodos do Objeto
-		 * encpsulado.
-		 * 
-		 */
+		
 
 		if (usuario.isPresent()) { // verifica se o usuario existe
 
 			if (compararSenhas(usuarioLogin.get().getSenha(), usuario.get().getSenha())) {
-				// senha //senha criptografada
-				// Verifica se a senha enviada, depois de criptografada, é igual a senha gravada
-				// no Banco de Dados, através do Método compararSenhas.
-				// O Método Retorna verdadeiro se as senhas forem iguais, e falso caso contrário
 
 				usuarioLogin.get().setId(usuario.get().getId());
 				usuarioLogin.get().setNome(usuario.get().getNome());
